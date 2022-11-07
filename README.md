@@ -26,6 +26,12 @@ python3 train_arxiv_ready.py --dataset_name 'ogbn-arxiv' --dataset=ogbn-arxiv --
 python3 train_arxiv_ready.py --dataset_name 'ogbn-arxiv' --dataset=ogbn-arxiv --dgi-lr 0.0001 --n-hidden 1500 --n-layers 3 --proj_layers 1 --gnn_encoder 'gcn' --n-dgi-epochs 1
 ```
 
+**Please run the following command to play the demo in the folder "GGD_ogbn_product_1epoch":**
+
+```
+python3 train_product_to_release.py --dataset_name 'ogbn-products' --dataset=ogbn-products --n-classifier-epochs 3000 --self-loop --ggd-lr 0.0001 --n-hidden 1024 --n-layers 4 --proj_layers 4 --gnn_encoder 'gcn' --n-ggd-epochs 1
+```
+
 # Reference
 
 ```

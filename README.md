@@ -7,6 +7,24 @@ Code for NeurIPS 2022 paper **"Rethinking and Scaling Up Graph Contrastive Learn
 # Overview
 Our implementation for Graph Group Discrimination (GGD) is based on PyTorch. There are two versions of our implementation including the manual version and the DGL-based version.
 
+**Requirement**
+```
+dgl                     0.7.1
+networkx                2.6.2
+numpy                   1.22.3
+ogb                     1.3.2
+scikit-learn            0.24.2
+torch                   1.9.0
+torch-cluster           1.5.9
+torch-geometric         2.0.4
+torch-scatter           2.0.8
+torch-sparse            0.6.12
+torch-spline-conv       1.2.1
+torchaudio              0.9.0a0+33b2469
+torchmetrics            0.5.1
+torchvision             0.10.0
+```
+
 **Please run the following command to play the manual version of GGD for Cora dataset in the folder "Manual_version":**
 ```
 python execute.py

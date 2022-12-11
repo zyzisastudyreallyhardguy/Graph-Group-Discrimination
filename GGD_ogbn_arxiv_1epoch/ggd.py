@@ -23,9 +23,9 @@ class Encoder(nn.Module):
 
         return features
 
-class DGI(nn.Module):
+class GGD(nn.Module):
     def __init__(self, g, in_feats, n_hidden, n_layers, activation, dropout, proj_layers, gnn_encoder, num_hop):
-        super(DGI, self).__init__()
+        super(GGD, self).__init__()
         self.encoder = Encoder(g, in_feats, n_hidden, n_layers, activation, dropout, gnn_encoder, num_hop)
         self.mlp = torch.nn.ModuleList()
         for i in range(proj_layers):

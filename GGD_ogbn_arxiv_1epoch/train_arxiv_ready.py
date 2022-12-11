@@ -10,7 +10,7 @@ from dgl.data import register_data_args, load_data
 from dgl.nn import EdgeWeightNorm
 import random
 import copy
-from dgi import DGI, Classifier
+from ggd import GGD, Classifier
 from ogb.nodeproppred import DglNodePropPredDataset, Evaluator
 import os
 from sklearn import preprocessing as sk_prep
@@ -116,8 +116,8 @@ def main(args):
         n_edges = g.num_edges()
 
     g = g.to(free_gpu_id)
-    # create DGI model
-    dgi = DGI(g,
+    # create GGD model
+    ggd = GGD(g,
               in_feats,
               args.n_hidden,
               args.n_layers,
@@ -128,10 +128,10 @@ def main(args):
               args.num_hop)
 
     if cuda:
-        dgi.cuda()
+        ggd.cuda()
 
-    dgi_optimizer = torch.optim.AdamW(dgi.parameters(),
-                                     lr=args.dgi_lr,
+    ggd_optimizer = torch.optim.AdamW(ggd.parameters(),
+                                     lr=args.ggd_lr,
                                      weight_decay=args.weight_decay)
 
     b_xent = nn.BCEWithLogitsLoss()
@@ -145,27 +145,27 @@ def main(args):
 
     tag = str(int(np.random.random() * 10000000000))
 
-    for epoch in range(args.n_dgi_epochs):
-        dgi.train()
+    for epoch in range(args.n_ggd_epochs):
+        ggd.train()
         if epoch >= 3:
             t0 = time.time()
 
-        dgi_optimizer.zero_grad()
+        ggd_optimizer.zero_grad()
 
         lbl_1 = torch.ones(1, g.num_nodes())
         lbl_2 = torch.zeros(1, g.num_nodes())
         lbl = torch.cat((lbl_1, lbl_2), 1).cuda()
 
         aug_feat = aug_feature_dropout(features, args.drop_feat)
-        loss = dgi(aug_feat.cuda(), lbl, b_xent)
+        loss = ggd(aug_feat.cuda(), lbl, b_xent)
         loss.backward()
-        dgi_optimizer.step()
+        ggd_optimizer.step()
 
         if loss < best:
             best = loss
             best_t = epoch
             cnt_wait = 0
-            torch.save(dgi.state_dict(), 'pkl/best_dgi' + tag + '.pkl')
+            torch.save(ggd.state_dict(), 'pkl/best_ggd' + tag + '.pkl')
         else:
             cnt_wait += 1
 
@@ -196,10 +196,10 @@ def main(args):
     # train classifier
     print('Loading {}th epoch'.format(best_t))
 
-    dgi.load_state_dict(torch.load('pkl/best_dgi' + tag + '.pkl'))
+    ggd.load_state_dict(torch.load('pkl/best_ggd' + tag + '.pkl'))
 
     #graph power embedding reinforcement
-    l_embeds, g_embeds= dgi.embed(features, g)
+    l_embeds, g_embeds= ggd.embed(features, g)
 
     embeds = (l_embeds + g_embeds).squeeze(0)
 
@@ -251,19 +251,19 @@ if __name__ == '__main__':
 
     warnings.filterwarnings("ignore")
 
-    parser = argparse.ArgumentParser(description='DGI')
+    parser = argparse.ArgumentParser(description='GGD')
     register_data_args(parser)
     parser.add_argument("--dropout", type=float, default=0.,
                         help="dropout probability")
     parser.add_argument("--gpu", type=int, default=0,
                         help="gpu")
-    parser.add_argument("--dgi-lr", type=float, default=0.001,
-                        help="dgi learning rate")
+    parser.add_argument("--ggd-lr", type=float, default=0.001,
+                        help="ggd learning rate")
     parser.add_argument("--drop_feat", type=float, default=0.1,
                         help="feature dropout rate")
     parser.add_argument("--classifier-lr", type=float, default=0.05,
                         help="classifier learning rate")
-    parser.add_argument("--n-dgi-epochs", type=int, default=500,
+    parser.add_argument("--n-ggd-epochs", type=int, default=500,
                         help="number of training epochs")
     parser.add_argument("--n-classifier-epochs", type=int, default=6000,
                         help="number of training epochs")

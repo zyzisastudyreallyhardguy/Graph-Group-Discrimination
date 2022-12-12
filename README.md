@@ -5,7 +5,7 @@ Code for NeurIPS 2022 paper **"Rethinking and Scaling Up Graph Contrastive Learn
 ![image](https://user-images.githubusercontent.com/75228223/191444300-b15ab48b-11c4-477d-b9bd-1a6b4cb931b8.png)
 
 # Overview
-Our implementation for Graph Group Discrimination (GGD) is based on PyTorch. There are two versions of our implementation including the manual version and the DGL-based version.
+Our implementation for Graph Group Discrimination (GGD) is based on PyTorch.
 
 **Requirement**
 ```
@@ -25,23 +25,34 @@ torchmetrics            0.5.1
 torchvision             0.10.0
 ```
 
-**Please run the following command to play the manual version of GGD for Cora dataset in the folder "Manual_version":**
+**Please run the following command to run GGD for Cora dataset in the folder "GGD-citation":**
 ```
 python execute.py
 ```
 
-**Please run the following command to play the demo in the folder "dgl_ogbn_arxiv_demo":**
+**Please run the following command to run GGD for Amazon/Coauthor datasets in the folder "GGD-amco":**
+
+**For Amazon Photo**
+```
+python train_coauthor.py --n-classifier-epochs 2000 --n-hidden 512 --n-ggd-epochs 2000 --ggd-lr 0.0005 --proj_layers 1 --dataset_name 'photo'
+```
+**For Amazon Computer**
+```
+-n-classifier-epochs 3500 --n-hidden 1024 --n-ggd-epochs 1500 --ggd-lr 0.0001 --proj_layers 1 --dataset_name 'computer'
+```
+
+**Please run the following command to play the demo in the folder "GGD_ogbn_arxiv_1epoch":**
 
 #hidden 256
 
 ```
-python3 train_arxiv_ready.py --dataset_name 'ogbn-arxiv' --dataset=ogbn-arxiv --dgi-lr 0.0001 --n-hidden 256 --n-layers 3 --proj_layers 1 --gnn_encoder 'gcn' --n-dgi-epochs 1
+python3 train_arxiv_ready.py --dataset_name 'ogbn-arxiv' --dataset=ogbn-arxiv --ggd-lr 0.0001 --n-hidden 256 --n-layers 3 --proj_layers 1 --gnn_encoder 'gcn' --n-ggd-epochs 1
 ```
 
 #hidden 1500
 
 ```
-python3 train_arxiv_ready.py --dataset_name 'ogbn-arxiv' --dataset=ogbn-arxiv --dgi-lr 0.0001 --n-hidden 1500 --n-layers 3 --proj_layers 1 --gnn_encoder 'gcn' --n-dgi-epochs 1
+python3 train_arxiv_ready.py --dataset_name 'ogbn-arxiv' --dataset=ogbn-arxiv --ggd-lr 0.0001 --n-hidden 1500 --n-layers 3 --proj_layers 1 --gnn_encoder 'gcn' --n-ggd-epochs 1
 ```
 
 **Please run the following command to play the demo in the folder "GGD_ogbn_product_1epoch":**

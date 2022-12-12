@@ -25,22 +25,6 @@ torchmetrics            0.5.1
 torchvision             0.10.0
 ```
 
-**Please run the following command to run GGD for Cora dataset in the folder "GGD-citation":**
-```
-python execute.py
-```
-
-**Please run the following command to run GGD for Amazon/Coauthor datasets in the folder "GGD-amco":**
-
-**For Amazon Photo**
-```
-python train_coauthor.py --n-classifier-epochs 2000 --n-hidden 512 --n-ggd-epochs 2000 --ggd-lr 0.0005 --proj_layers 1 --dataset_name 'photo'
-```
-**For Amazon Computer**
-```
--n-classifier-epochs 3500 --n-hidden 1024 --n-ggd-epochs 1500 --ggd-lr 0.0001 --proj_layers 1 --dataset_name 'computer'
-```
-
 **Please run the following command to play the demo in the folder "GGD_ogbn_arxiv_1epoch":**
 
 #hidden 256
@@ -59,6 +43,22 @@ python3 train_arxiv_ready.py --dataset_name 'ogbn-arxiv' --dataset=ogbn-arxiv --
 
 ```
 python3 train_product_to_release.py --dataset_name 'ogbn-products' --dataset=ogbn-products --n-classifier-epochs 3000 --self-loop --ggd-lr 0.0001 --n-hidden 1024 --n-layers 4 --proj_layers 4 --gnn_encoder 'gcn' --n-ggd-epochs 1
+```
+
+**Please run the following command to run GGD for Cora dataset in the folder "GGD-citation":**
+```
+python execute.py
+```
+
+**Please run the following command to run GGD for Amazon/Coauthor datasets in the folder "GGD-amco":**
+
+**For Amazon Photo**
+```
+python train_coauthor.py --n-classifier-epochs 2000 --n-hidden 512 --n-ggd-epochs 2000 --ggd-lr 0.0005 --proj_layers 1 --dataset_name 'photo'
+```
+**For Amazon Computer**
+```
+-n-classifier-epochs 3500 --n-hidden 1024 --n-ggd-epochs 1500 --ggd-lr 0.0001 --proj_layers 1 --dataset_name 'computer'
 ```
 
 # Reference

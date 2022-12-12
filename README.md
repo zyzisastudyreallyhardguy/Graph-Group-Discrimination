@@ -51,6 +51,7 @@ python execute.py
 ```
 
 **Please run the following command to run GGD for Amazon/Coauthor datasets in the folder "GGD-amco":**
+To download these datasets, please use this link "https://github.com/shchur/gnn-benchmark/tree/master/data/npz". The downloaded files should be put under the "GGD-amco/data" folder.
 
 **For Amazon Photo**
 ```

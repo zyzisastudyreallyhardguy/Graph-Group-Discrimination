@@ -73,7 +73,7 @@ python train_coauthor.py --n-classifier-epochs 2000 --n-hidden 512 --n-ggd-epoch
 }
 ```
 
-#License
+# License
 
 ```
 MIT
